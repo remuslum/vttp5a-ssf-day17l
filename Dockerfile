@@ -16,5 +16,6 @@ ENV SERVER_PORT=4000
 
 EXPOSE ${SERVER_PORT}
 
+# docker stop <First 4 digits of container-id>
 # ENTRYPOINT ./mvnw spring-boot:run
 ENTRYPOINT java -jar target/vttp5a-ssf-day17l-0.0.1-SNAPSHOT.jar
