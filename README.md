@@ -22,3 +22,28 @@ ENV MY_API_PASS_KEY=xyz789
 EXPOSE ${SERVER_PORT}
 
 ENTRYPOINT java -jar app.jar
+
+
+# Test Redis Connection
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.stereotype.Service;
+
+@Service
+public class RedisHealthCheck {
+
+    private final RedisConnectionFactory connectionFactory;
+
+    public RedisHealthCheck(RedisConnectionFactory connectionFactory) {
+        this.connectionFactory = connectionFactory;
+    }
+
+    public boolean isRedisHealthy() {
+        try {
+            return "PONG".equals(connectionFactory.getConnection().ping());
+        } catch (Exception e) {
+            // Log the error if needed
+            return false;
+        }
+    }
+}
+
